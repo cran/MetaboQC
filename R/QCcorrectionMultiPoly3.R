@@ -20,7 +20,8 @@ QCcorrectionMultiPoly3<-function(LCdata) {
   LCdata<-LCdata
   LCdataframe<-as.data.frame(LCdata)
   LCdataQC<-subset(LCdata,LCdata$QC==1)
-  nDAY<-ddply(LCdataframe,.("QC","Day"),summarise,nSamples=sum(!is.na(LCdataframe$QC)))
+  variables<-c("QC","Day")
+  nDAY<-ddply(LCdataframe,variables,summarise,nSamples=sum(!is.na(LCdataframe$QC)))
   nDAYQC<-nDAY[nDAY$QC==1,]
   nDAYQC<-na.omit(nDAYQC)
   Day1<-list(nDAYQC$Day)
